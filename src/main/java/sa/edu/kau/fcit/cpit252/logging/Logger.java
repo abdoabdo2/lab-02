@@ -12,7 +12,9 @@ public class Logger {
     private final String logFile = currentDateTimeString + ".txt";
     private PrintWriter writer;
 
-    public Logger() {
+    private static Logger loggerinstance;
+
+    private Logger() {
         try {
             FileWriter fw = new FileWriter(logFile);
             writer = new PrintWriter(fw, true);
@@ -20,6 +22,16 @@ public class Logger {
         catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+
+    public static Logger getLoggerInstance(){
+        if(loggerinstance == null){
+            loggerinstance = new Logger();
+
+        }
+
+        return loggerinstance;
     }
     public void info (String message) {
         writer.println("INFO: " + message);
